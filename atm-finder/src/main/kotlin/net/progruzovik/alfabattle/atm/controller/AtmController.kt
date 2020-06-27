@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*
 class AtmController(private val atmService: AtmService) {
 
     @GetMapping("/{id}")
-    fun getAtm(@PathVariable id: Long): AtmResponseDTO = atmService.findAtm(id)
+    fun getAtm(@PathVariable id: Int): AtmResponseDTO = atmService.findAtm(id)
 
     @GetMapping("/nearest")
     fun getNearestAtm(
@@ -21,6 +21,15 @@ class AtmController(private val atmService: AtmService) {
         @RequestParam payments: Boolean = false
     ): AtmResponseDTO {
         return atmService.findNearestAtm(latitude, longitude, payments)
+    }
+
+    @GetMapping("/nearest-with-alfik")
+    fun getNearestAtmsWithAlfiks(
+        @RequestParam latitude: Double,
+        @RequestParam longitude: Double,
+        @RequestParam alfik: Int
+    ): List<AtmResponseDTO> {
+        return atmService.findNearestAtmsWithAlfiks(latitude, longitude, alfik)
     }
 
     @ResponseStatus(HttpStatus.NOT_FOUND)

@@ -9,8 +9,8 @@ import org.springframework.stereotype.Component
 @Component
 class AtmMapper {
 
-    fun atmDataToDomain(data: Map< String, Any>, id: Long? = null): AtmData = AtmData(
-        deviceId = id ?: (data.getValue("deviceId") as Int).toLong(),
+    fun atmDataToDomain(data: Map< String, Any>, id: Int? = null): AtmData = AtmData(
+        deviceId = id ?: data.getValue("deviceId") as Int,
         latitude = (data.getValue("coordinates") as Map<String, String>).getValue("latitude"),
         longitude = (data.getValue("coordinates") as Map<String, String>).getValue("longitude"),
         city = (data.getValue("address") as Map<String, String>).getValue("city"),

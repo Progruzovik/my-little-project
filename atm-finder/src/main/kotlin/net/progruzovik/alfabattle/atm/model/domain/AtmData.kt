@@ -1,7 +1,7 @@
 package net.progruzovik.alfabattle.atm.model.domain
 
 data class AtmData(
-    val deviceId: Long,
+    val deviceId: Int,
     val latitude: String?,
     val longitude: String?,
     val city: String,
