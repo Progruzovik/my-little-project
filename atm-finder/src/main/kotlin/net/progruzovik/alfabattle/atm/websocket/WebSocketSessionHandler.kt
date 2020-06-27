@@ -34,7 +34,6 @@ class WebSocketSessionHandler(private val client: AlfikStompClient) : StompSessi
     }
 
     override fun handleFrame(headers: StompHeaders, payload: Any?) {
-        println(payload)
         if (payload is AlfikResponseDTO) {
             client.onResponse(payload)
         }
