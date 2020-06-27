@@ -9,7 +9,6 @@ import org.springframework.cache.CacheManager
 import org.springframework.core.io.ClassPathResource
 import org.springframework.stereotype.Component
 import java.io.InputStreamReader
-import java.math.BigDecimal
 
 @Component
 class ItemsRunner(private val cacheManager: CacheManager) : ApplicationRunner {
@@ -17,18 +16,16 @@ class ItemsRunner(private val cacheManager: CacheManager) : ApplicationRunner {
     override fun run(args: ApplicationArguments) {
         InputStreamReader(ClassPathResource("items.csv").inputStream).use { reader ->
             CSVFormat.DEFAULT.parse(reader)
-                .map { Item(
-                    id = it[ID],
-                    name = it[NAME],
-                    groupId = it[GROUP_ID],
-                    price = try {
-                        it[PRICE].toBigDecimal()
-                    } catch (e: NumberFormatException) {
-                        log.error("Exception for: ${it[PRICE]}", e)
-                        BigDecimal.ZERO
-                    }
-                ) }
-                .forEach { cacheManager.getCache("items")!!.put(it.id, it) }
+                .forEachIndexed { i, record ->
+                    if (i == 0) return@forEachIndexed
+                    val item = Item(
+                        id = record[ID],
+                        name = record[NAME],
+                        groupId = record[GROUP_ID],
+                        price = record[PRICE].toBigDecimal()
+                    )
+                    cacheManager.getCache("items")!!.put(item.id, item)
+                }
         }
     }
 
