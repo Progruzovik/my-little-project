@@ -34,5 +34,5 @@ class AtmController(private val atmService: AtmService) {
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(AtmNotFountException::class)
-    fun atmNotFound(e: AtmNotFountException): ErrorResponseDTO = ErrorResponseDTO("atm not found")
+    fun atmNotFound(): ErrorResponseDTO = ErrorResponseDTO("atm not found")
 }
