@@ -19,12 +19,14 @@ class ItemService(private val itemMapper: ItemMapper, private val cacheManager: 
             .map { cacheManager.getCache("items")!!.get(it.itemId, Item::class.java) to it.quantity }
 
         val discount: BigDecimal = getDiscount(receipt.loyaltyCard, receipt.shopId)
+        var discountPrice: BigDecimal = BigDecimal.ZERO
         val total: BigDecimal = itemsWithCount.fold(initial = BigDecimal.ZERO) { acc, (item, count) ->
+            discountPrice += item.price * discount
             acc + (item.price - item.price * discount) * count.toBigDecimal()
         }
         return ItemsDataDTO(
             total = total.setScale(2, RoundingMode.HALF_EVEN),
-            discount = BigDecimal.ZERO.setScale(2, RoundingMode.HALF_EVEN),
+            discount = discountPrice.setScale(2, RoundingMode.HALF_EVEN),
             positions = itemsWithCount.map { itemMapper.domainWithCountToDto(it, discount) }
         )
     }

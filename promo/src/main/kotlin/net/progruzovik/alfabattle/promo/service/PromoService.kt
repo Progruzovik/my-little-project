@@ -11,7 +11,7 @@ class PromoService(private val cacheManager: CacheManager) {
     fun setUpPromo(promo: PromoDTO?) {
         val cache: Cache = cacheManager.getCache("promo")!!
         cache.clear()
-        if (promo == null) return
+        if (promo?.loyaltyCardRules == null) return
         promo.loyaltyCardRules.forEach { cache.put(it.shopId, it.discount) }
     }
 }
