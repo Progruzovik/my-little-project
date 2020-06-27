@@ -14,6 +14,15 @@ class AtmController(private val atmService: AtmService) {
     @GetMapping("/{id}")
     fun getAtm(@PathVariable id: Long): AtmResponseDTO = atmService.findAtm(id)
 
+    @GetMapping("/nearest")
+    fun getNearestAtm(
+        @RequestParam latitude: Double,
+        @RequestParam longitude: Double,
+        @RequestParam payments: Boolean = false
+    ): AtmResponseDTO {
+        return atmService.findNearestAtm(latitude, longitude, payments)
+    }
+
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(AtmNotFountException::class)
     fun atmNotFound(e: AtmNotFountException): ErrorResponseDTO = ErrorResponseDTO("atm not found")

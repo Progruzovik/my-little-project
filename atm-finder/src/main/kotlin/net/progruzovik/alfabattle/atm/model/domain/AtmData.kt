@@ -1,6 +1,6 @@
-package net.progruzovik.alfabattle.atm.model.dto
+package net.progruzovik.alfabattle.atm.model.domain
 
-data class AtmResponseDTO(
+data class AtmData(
     val deviceId: Long,
     val latitude: String?,
     val longitude: String?,
