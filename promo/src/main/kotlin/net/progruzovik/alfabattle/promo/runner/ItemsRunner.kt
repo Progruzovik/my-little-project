@@ -2,7 +2,6 @@ package net.progruzovik.alfabattle.promo.runner
 
 import net.progruzovik.alfabattle.promo.model.domain.Item
 import org.apache.commons.csv.CSVFormat
-import org.slf4j.LoggerFactory
 import org.springframework.boot.ApplicationArguments
 import org.springframework.boot.ApplicationRunner
 import org.springframework.cache.CacheManager
@@ -34,7 +33,5 @@ class ItemsRunner(private val cacheManager: CacheManager) : ApplicationRunner {
         private const val NAME = 1
         private const val GROUP_ID = 2
         private const val PRICE = 3
-
-        private val log = LoggerFactory.getLogger(ItemsRunner::class.java)
     }
 }
