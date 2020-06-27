@@ -1,6 +1,7 @@
 package net.progruzovik.alfabattle.kassa.controller
 
 import net.progruzovik.alfabattle.kassa.exception.BranchNotFoundException
+import net.progruzovik.alfabattle.kassa.model.dto.BranchWithDistanceDTO
 import net.progruzovik.alfabattle.kassa.model.dto.ErrorResponseDTO
 import net.progruzovik.alfabattle.kassa.model.entity.BranchEntity
 import net.progruzovik.alfabattle.kassa.service.BranchService
@@ -15,7 +16,7 @@ class BranchController(private val branchService: BranchService) {
     fun getBranch(@PathVariable id: Int): BranchEntity = branchService.getBranch(id)
 
     @GetMapping
-    fun getNearestBranch(@RequestParam lat: Double, @RequestParam lon: Double): BranchEntity {
+    fun getNearestBranch(@RequestParam lat: Double, @RequestParam lon: Double): BranchWithDistanceDTO {
         return branchService.getNearestBranch(lat, lon)
     }
 
