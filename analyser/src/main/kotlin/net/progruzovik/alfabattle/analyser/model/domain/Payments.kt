@@ -1,3 +1,5 @@
 package net.progruzovik.alfabattle.analyser.model.domain
 
-data class Payments(var min: Double? = null, var max: Double? = null, var sum: Double = 0.0)
+import java.math.BigDecimal
+
+data class Payments(var min: BigDecimal? = null, var max: BigDecimal? = null, var sum: BigDecimal = BigDecimal.ZERO)

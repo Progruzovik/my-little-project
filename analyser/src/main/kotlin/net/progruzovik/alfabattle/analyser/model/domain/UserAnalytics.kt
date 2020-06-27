@@ -1,3 +1,5 @@
 package net.progruzovik.alfabattle.analyser.model.domain
 
-data class UserAnalytics(val userId: String, val totalSum: Double, val analyticInfo: Map<String, Payments>)
+import java.math.BigDecimal
+
+data class UserAnalytics(val userId: String, val totalSum: BigDecimal, val analyticInfo: Map<String, Payments>)

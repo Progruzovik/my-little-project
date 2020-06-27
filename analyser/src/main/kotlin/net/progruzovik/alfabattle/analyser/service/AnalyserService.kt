@@ -7,6 +7,7 @@ import net.progruzovik.alfabattle.analyser.model.domain.UserAnalytics
 import net.progruzovik.alfabattle.analyser.model.dto.KafkaRecordDTO
 import org.apache.kafka.clients.consumer.KafkaConsumer
 import org.springframework.stereotype.Service
+import java.math.BigDecimal
 import java.time.Duration
 
 @Service
@@ -33,22 +34,23 @@ class AnalyserService(private val mapper: ObjectMapper, private val kafkaConsume
     }
 
     private fun sumUserRecords(userRecords: List<KafkaRecordDTO>): UserAnalytics {
-        var totalSum = 0.0
+        var totalSum = BigDecimal.ZERO
         val paymentsByCategories = HashMap<String, Payments>()
         for (record in userRecords) {
-            totalSum += record.amount
+            val recordAmount: BigDecimal = record.amount
+            totalSum += recordAmount
 
             val categoryId: String = record.categoryId.toString()
             val categoryPayments: Payments = paymentsByCategories[categoryId] ?: Payments()
-            val min: Double? = categoryPayments.min
-            if (min == null || record.amount < min) {
-                categoryPayments.min = record.amount
+            val min: BigDecimal? = categoryPayments.min
+            if (min == null || recordAmount < min) {
+                categoryPayments.min = recordAmount
             }
-            val max: Double? = categoryPayments.max
-            if (max == null || record.amount > max) {
-                categoryPayments.max = record.amount
+            val max: BigDecimal? = categoryPayments.max
+            if (max == null || recordAmount > max) {
+                categoryPayments.max = recordAmount
             }
-            categoryPayments.sum += record.amount
+            categoryPayments.sum += recordAmount
             paymentsByCategories[categoryId] = categoryPayments
         }
         return UserAnalytics(
