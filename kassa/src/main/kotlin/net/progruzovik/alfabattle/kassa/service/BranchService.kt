@@ -26,7 +26,7 @@ class BranchService(private val branchMapper: BranchMapper, private val branchRe
             val latSin: Double = sin((destRadLat - radLat) / 2)
             val lonSin: Double = sin((destRadLon - radLon) / 2)
             val distance: Double = 2 * EARTH_RADIUS * asin(sqrt(latSin * latSin + cos(radLat) * cos(radLon) * lonSin * lonSin))
-            branchMapper.entityToDtoWithDistance(it, (distance * 1000).toInt())
+            branchMapper.entityToDtoWithDistance(it, (distance * 100).toInt() * 10) //why 10 meters precision?
         }
         .minBy { it.distance } ?: throw BranchNotFoundException()
 
