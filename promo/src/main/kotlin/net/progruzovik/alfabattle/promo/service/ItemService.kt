@@ -35,7 +35,11 @@ class ItemService(private val itemMapper: ItemMapper, private val cacheManager: 
         val globalDiscount: BigDecimal? = cacheManager.getCache("promo")?.get(GLOBAL_PROMO, BigDecimal::class.java)
         val shopDiscount: BigDecimal? = cacheManager.getCache("promo")?.get(shopId, BigDecimal::class.java)
         if (globalDiscount != null && shopDiscount != null) {
-            shopDiscount + globalDiscount
+            if (globalDiscount > shopDiscount) {
+                globalDiscount
+            } else {
+                shopDiscount
+            }
         } else if (globalDiscount == null && shopDiscount != null) {
             shopDiscount
         } else if (globalDiscount != null && shopDiscount == null) {
