@@ -1,0 +1,7 @@
+server:
+  port: 8082
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/alfa_battle
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}

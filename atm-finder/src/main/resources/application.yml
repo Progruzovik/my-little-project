@@ -1,0 +1,10 @@
+server:
+  port: 8080
+alfa-integration:
+  alfa-url: ${ALFA_URL}
+  stomp-url: ws://localhost:8100
+  client:
+    id: ${ALFA_CLIENT_ID}
+    certificate: ${ALFA_CLIENT_CERTIFICATE}
+    key-store: ${ALFA_KEYSTORE_PATH}
+    key-store-password: ${ALFA_KEYSTORE_PASSWORD}
