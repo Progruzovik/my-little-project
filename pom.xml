@@ -24,7 +24,6 @@
         <module>atm-finder</module>
         <module>analyser</module>
         <module>kassa</module>
-        <module>credit</module>
         <module>promo</module>
     </modules>
 
